@@ -1,0 +1,52 @@
+{
+  "name": "gendiff",
+  "version": "1.0.0",
+  "description": "Project #1 within education on hexlet.io in profession 'Backend JavaScript(Node.js)'",
+  "keywords": [
+    "education",
+    "brain-games",
+    "hexlet.io"
+  ],
+  "main": "index.js",
+  "bin": {
+    "gendiff": "dist/bin/gendiff.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "prepublishOnly": "npm run build"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrFSP/backend-project-lvl2.git"
+  },
+  "author": "Pavel Egorov (MrFSP)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrFSP/backend-project-lvl2/issues"
+  },
+  "homepage": "https://github.com/MrFSP/backend-project-lvl2#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^25.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jest": "^23.6.0",
+    "jest": "^25.1.0",
+    "jest-cli": "^25.1.0"
+  },
+  "dependencies": {
+    "commander": "^4.1.0",
+    "source-map-support": "^0.5.16"
+  }
+}
