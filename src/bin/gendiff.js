@@ -1,10 +1,18 @@
 #!/usr/bin/env node
 
+import { version, description } from '../../package.json';
 const program = require('commander');
 
-program
-  .description('Compares two configuration files and shows a difference.')  
-  .version('0.0.1', '-V, --vers', 'output the version number')
-  .on('--help', function() {});
+const printLineWith = (name) => console.log(`___________________________________${name}___________________________________`);
 
-program.parse(process.argv);
+program
+  .description(description)  
+  .version(`gendiff version: ${version}`, '-V, --version', 'output the version number')
+  .arguments('<firstConfig> <secondConfig>')
+  .action((firstConfig, secondConfig) => {
+    printLineWith('gendiff');
+    console.log(firstConfig + secondConfig);
+    printLineWith('gendiff');
+  })
+  .option('-f, --format [type]', 'output format')
+  .parse(process.argv);

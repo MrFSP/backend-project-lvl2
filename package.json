@@ -1,10 +1,9 @@
 {
   "name": "gendiff",
-  "version": "1.0.0",
-  "description": "Project #1 within education on hexlet.io in profession 'Backend JavaScript(Node.js)'",
+  "version": "0.0.1",
+  "description": "Compares two configuration files and shows a difference.",
   "keywords": [
     "education",
-    "brain-games",
     "hexlet.io"
   ],
   "main": "index.js",
