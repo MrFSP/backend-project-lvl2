@@ -15,5 +15,8 @@ republish:
 	npm run build
 	npm publish --dry-run
 	sudo npm link
+
+test-coverage:
+	npm test -- --coverage
 	
 .PHONY: test

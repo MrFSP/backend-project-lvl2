@@ -5,3 +5,4 @@
 .eslintrc.js
 *.log
 package-lock.json
+coverage
