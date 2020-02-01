@@ -3,7 +3,7 @@ env:
   jest: true
 
 extends:
-  - 'airbnb-base'
+  - airbnb-base
 
 rules:
   no-console: 0
