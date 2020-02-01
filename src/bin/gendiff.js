@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
+import program from 'commander';
 import { version, description } from '../../package.json';
 import genDiff from '..';
-import program from 'commander';
 
 const printLineWith = (name) => console.log(`___________________________________${name}___________________________________`);
 
 program
-  .description(description)  
+  .description(description)
   .version(`gendiff version: ${version}`, '-V, --version', 'output the version number')
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig) => {
