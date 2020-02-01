@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 import { version, description } from '../../package.json';
-const program = require('commander');
+import genDiff from '..';
+import program from 'commander';
 
 const printLineWith = (name) => console.log(`___________________________________${name}___________________________________`);
 
@@ -11,8 +12,10 @@ program
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig) => {
     printLineWith('gendiff');
-    console.log(firstConfig + secondConfig);
+    const result = genDiff(firstConfig, secondConfig);
+    console.log(result);
     printLineWith('gendiff');
+    return result;
   })
   .option('-f, --format [type]', 'output format')
   .parse(process.argv);

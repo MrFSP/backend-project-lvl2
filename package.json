@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "commander": "^4.1.0",
+    "lodash": "^4.17.15",
     "source-map-support": "^0.5.16"
   }
 }
