@@ -13,15 +13,13 @@ const getKeys = (data1, data2) => {
 };
 
 const getDifference = (keys, data1, data2) => keys.reduce((acc, key) => {
-  if (data1[key] === data2[key]) {
-    return [...acc, `    ${key}: ${data2[key]}`];
-  }
-  if (_.has(data1, key) && !_.has(data2, key)) {
-    return [...acc, `  - ${key}: ${data1[key]}`];
-  }
-  if (!_.has(data1, key) && _.has(data2, key)) {
-    return [...acc, `  + ${key}: ${data2[key]}`];
-  }
+
+  if (data1[key] === data2[key]) return [...acc, `    ${key}: ${data2[key]}`];
+
+  if (_.has(data1, key) && !_.has(data2, key)) return [...acc, `  - ${key}: ${data1[key]}`];
+
+  if (!_.has(data1, key) && _.has(data2, key)) return [...acc, `  + ${key}: ${data2[key]}`];
+
   return [...acc, `  + ${key}: ${data2[key]}`, `  - ${key}: ${data1[key]}`];
 }, []);
 
