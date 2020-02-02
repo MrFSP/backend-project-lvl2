@@ -51,10 +51,10 @@ $ make install
 ### Запуск
 
 ```sh
-$ brain-even
+$ gendiff pathToFile1 pathToFile2
 
 ``` 
 
 ### Демонстрации:
 
-
+https://asciinema.org/a/297336
