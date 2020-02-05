@@ -7,14 +7,11 @@ export default (pathToFile) => {
   const format = path.extname(pathToFile);
   const data = fs.readFileSync(pathToFile, 'utf-8');
 
-  let parse;
-  if (format === '.json') {
-    parse = JSON.parse;
-  } else if (format === '.yml') {
-    parse = yaml.safeLoad;
-  } else if (format === '.ini') {
-    parse = ini.parse;
-  }
+  const parse = {
+    '.json': JSON.parse,
+    '.yaml': yaml.safeLoad,
+    '.ini': ini.parse,
+  };
 
-  return parse(data);
+  return parse[format](data);
 };

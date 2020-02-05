@@ -27,11 +27,34 @@ const getStringifiedInnerItems = (father, change, value) => {
   const keys = Object.keys(value);
   const stringifiedInnerItems = keys.reduce((acc, k) => {
     const newKey = `${father}.${k}`;
-    const stringifiedItem1 = stringify(newKey, change, value[k]);
-    return isObject(value.k) ? [...acc, getStringifiedInnerItems(newKey, change, value.k)]
-      : [...acc, stringifiedItem1];
+    const newStringifiedItem = stringify(newKey, change, value[k]);
+    return [...acc, newStringifiedItem];
   }, []);
   return [stringifiedItem, ...stringifiedInnerItems].join('\n');
+};
+
+const getRenderedItemsByType = (acc, type, key, oldValue, newValue) => {
+  switch (type) {
+    case 'deleted': {
+      return [...acc, stringify(key, 'deleted')];
+    }
+    case 'added': {
+      const newItem = getStringifiedInnerItems(key, 'added', newValue);
+      return [...acc, newItem];
+    }
+    case 'changed': {
+      if (isObject(oldValue) || isObject(newValue)) {
+        const changedItem = stringify(key, 'objects');
+        const newItems = getStringifiedInnerItems(key, 'added', newValue);
+        return [...acc, changedItem, newItems];
+      }
+      const changedItem = stringify(key, 'changed', newValue, oldValue);
+      return [...acc, changedItem];
+    }
+    default: {
+      return [...acc, stringify(key, '', newValue)];
+    }
+  }
 };
 
 const getRendering = (data, father = '') => data.reduce((acc, item) => {
@@ -42,24 +65,8 @@ const getRendering = (data, father = '') => data.reduce((acc, item) => {
       const stringifiedItem = stringify(key, 'objects');
       return [...acc, stringifiedItem, renderedInnerItems];
     }
-    case 'deleted': {
-      return [...acc, stringify(key, 'deleted')];
-    }
-    case 'added': {
-      const newItem = getStringifiedInnerItems(key, 'added', item.newValue);
-      return [...acc, newItem];
-    }
-    case 'changed': {
-      if (isObject(item.oldValue) || isObject(item.newValue)) {
-        const changedItem = stringify(key, 'objects');
-        const newItems = getStringifiedInnerItems(key, 'added', item.newValue);
-        return [...acc, changedItem, newItems];
-      }
-      const changedItem = stringify(key, 'changed', item.newValue, item.oldValue);
-      return [...acc, changedItem];
-    }
     default: {
-      return [...acc, stringify(key, '', item.newValue)];
+      return getRenderedItemsByType(acc, item.type, key, item.oldValue, item.newValue);
     }
   }
 }, []).join('\n');

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import genDiff from '../src';
 
-const formats = [['json'], ['yml'], ['ini']];
+const formats = [['json'], ['yaml'], ['ini']];
 
 test.each(formats)(
   '%p',

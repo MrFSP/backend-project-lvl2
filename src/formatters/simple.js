@@ -1,6 +1,6 @@
 import { isObject } from '../makediff';
 
-const stringify = (data, key, lvl = 0, change = ' ', obj = false) => {
+const stringify = (data, key, lvl, change = ' ', obj = false) => {
   if (isObject(data) || obj === true) {
     const newData = obj === true ? data : Object.keys(data)
       .map((k) => stringify(data[k], k, lvl + 4))
@@ -30,12 +30,11 @@ const getRendering = (data, lvl = 0) => data.reduce((acc, item) => {
       const newItem = stringify(item.newValue, item.key, currentLvl, '-');
       return [...acc, newItem];
     }
-    case 'changed': {
+    default: {
       const oldItem = stringify(item.oldValue, item.key, currentLvl, '-');
       const newItem = stringify(item.newValue, item.key, currentLvl, '+');
       return [...acc, oldItem, newItem];
     }
-    default: return acc;
   }
 }, []).join('');
 

@@ -25,14 +25,11 @@ export const getDifference = (data1, data2) => {
       if (!_.has(data2, key)) {
         return { key, type: 'deleted', newValue: data1[key] };
       }
-      if (_.has(data1, key) && _.has(data2, key) && data1[key] !== data2[key]) {
-        return {
-          key,
-          type: 'changed',
-          oldValue: data1[key],
-          newValue: data2[key],
-        };
-      }
-      return null;
+      return {
+        key,
+        type: 'changed',
+        oldValue: data1[key],
+        newValue: data2[key],
+      };
     }).sort();
 };
