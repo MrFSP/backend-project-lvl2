@@ -2,6 +2,9 @@ language: node_js
 node_js:
   - node
 
+install:
+  - npm ci
+
 env:
   global:
     - CC_TEST_REPORTER_ID=910c86110790e9982a9eb5bbfbb982b297fce2c2d21eefcb797afbe628c90ad2
