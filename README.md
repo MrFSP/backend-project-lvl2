@@ -1,6 +1,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/MrFSP/backend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/16a429115cc91b51c51c/test_coverage)](https://codeclimate.com/github/MrFSP/backend-project-lvl2)
 [![Build Status](https://travis-ci.org/MrFSP/backend-project-lvl2.svg?branch=master)](https://travis-ci.org/MrFSP/backend-project-lvl2)
+https://github.com/MrFSP/backend-project-lvl2/workflows/{workflow_name}/badge.svg
 
 ## Проект Вычислитель отличий / Профессия Бэкенд JavaScript (node.js)
 https://ru.hexlet.io/professions/backend/projects/46
@@ -57,7 +58,11 @@ $ gendiff pathToFile1 pathToFile2
 
 ### Демонстрации:
 
-#### Step 1 - 6:
+#### Step 2
+
+https://asciinema.org/a/298228
+
+#### Step 3 - 6:
 
 https://asciinema.org/a/297342
 
@@ -68,3 +73,7 @@ https://asciinema.org/a/297754
 #### Step 8:
 
 https://asciinema.org/a/298205
+
+#### Step 9:
+
+https://asciinema.org/a/298226

@@ -3,10 +3,10 @@ import { isObject } from '../makediff';
 const stringify = (prop, change, value, oldValue) => {
   switch (change) {
     case 'changed': {
-      return `Property '${prop}' was changed from '${oldValue}' to '${value}'`;
+      return `Property '${prop}' was changed from ${oldValue} to ${value}`;
     }
     case 'added': {
-      return `Property '${prop}' was added with value: '${value}'`;
+      return `Property '${prop}' was added with value: ${value}`;
     }
     case 'deleted': {
       return `Property '${prop}' was deleted`;

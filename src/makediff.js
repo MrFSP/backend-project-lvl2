@@ -9,11 +9,7 @@ export const getDifference = (data1, data2) => {
   return keys.sort()
     .map((key) => {
       if (isObject(data1[key]) && isObject(data2[key])) {
-        return {
-          key,
-          type: 'objects',
-          children: getDifference(data1[key], data2[key]),
-        };
+        return { key, type: 'objects', children: getDifference(data1[key], data2[key]) };
       }
       if (data1[key] === data2[key]) {
         return {
@@ -24,18 +20,10 @@ export const getDifference = (data1, data2) => {
         };
       }
       if (!_.has(data1, key)) {
-        return {
-          key,
-          type: 'added',
-          newValue: data2[key],
-        };
+        return { key, type: 'added', newValue: data2[key] };
       }
       if (!_.has(data2, key)) {
-        return {
-          key,
-          type: 'deleted',
-          newValue: data1[key],
-        };
+        return { key, type: 'deleted', newValue: data1[key] };
       }
       if (_.has(data1, key) && _.has(data2, key) && data1[key] !== data2[key]) {
         return {

@@ -12,5 +12,7 @@ test.each(formats)(
     expect(genDiff(before, after, 'simple')).toBe(expectedSimple);
     const expectedPlain = fs.readFileSync(`${__dirname}/fixtures/expected.plain.txt`, 'utf-8');
     expect(genDiff(before, after, 'plain')).toBe(expectedPlain);
+    const expectedJson = fs.readFileSync(`${__dirname}/fixtures/expected.json.txt`, 'utf-8');
+    expect(genDiff(before, after, 'json')).toBe(expectedJson);
   },
 );

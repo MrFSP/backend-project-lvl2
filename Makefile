@@ -13,6 +13,9 @@ start3:
 start4:
 	npx babel-node src/bin/gendiff.js -f plain __tests__/fixtures/before.ini __tests__/fixtures/after.ini
 
+start5:
+	npx babel-node src/bin/gendiff.js -f json __tests__/fixtures/before.json __tests__/fixtures/after.json
+
 publish:
 	--dry-run
 
