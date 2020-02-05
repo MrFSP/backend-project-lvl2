@@ -9,13 +9,13 @@ const printLineWith = (name) => console.log(`___________________________________
 program
   .description(description)
   .version(`gendiff version: ${version}`, '-V, --version', 'output the version number')
+  .option('-f, --format [type]', 'output format', 'simple')
   .arguments('<firstConfig> <secondConfig>')
-  .action((firstConfig, secondConfig) => {
+  .action((firstConfig, secondConfig, option) => {
     printLineWith('gendiff');
-    const result = genDiff(firstConfig, secondConfig);
+    const result = genDiff(firstConfig, secondConfig, option.format);
     console.log(result);
     printLineWith('gendiff');
     return result;
   })
-  .option('-f, --format [type]', 'output format')
   .parse(process.argv);

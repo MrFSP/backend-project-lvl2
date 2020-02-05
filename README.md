@@ -57,4 +57,14 @@ $ gendiff pathToFile1 pathToFile2
 
 ### Демонстрации:
 
+#### Step 1 - 6:
+
 https://asciinema.org/a/297342
+
+#### Step 7:
+
+https://asciinema.org/a/297754
+
+#### Step 8:
+
+https://asciinema.org/a/298205

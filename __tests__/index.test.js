@@ -8,7 +8,9 @@ test.each(formats)(
   (extension) => {
     const before = `${__dirname}/fixtures/before.${extension}`;
     const after = `${__dirname}/fixtures/after.${extension}`;
-    const expected = fs.readFileSync(`${__dirname}/fixtures/expected.txt`, 'utf-8');
-    expect(genDiff(before, after)).toBe(expected);
+    const expectedSimple = fs.readFileSync(`${__dirname}/fixtures/expected.simple.txt`, 'utf-8');
+    expect(genDiff(before, after, 'simple')).toBe(expectedSimple);
+    const expectedPlain = fs.readFileSync(`${__dirname}/fixtures/expected.plain.txt`, 'utf-8');
+    expect(genDiff(before, after, 'plain')).toBe(expectedPlain);
   },
 );
