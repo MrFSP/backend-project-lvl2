@@ -1,4 +1,4 @@
-import { isObject } from '../makediff';
+import { isObject } from '../getdifference';
 
 const stringify = (prop, change, value, oldValue) => {
   switch (change) {
@@ -71,4 +71,16 @@ const getRendering = (data, father = '') => data.reduce((acc, item) => {
   }
 }, []).join('\n');
 
-export default (data) => getRendering(data);
+const getOptionFilter = (option) => {
+  switch (option) {
+    case 'diff':
+      return (item) => item.indexOf('not') === -1;
+    default:
+      return (item) => item.indexOf('not') !== -1;
+  }
+};
+
+export default (data, option) => (option === 'complete' ? getRendering(data)
+  : getRendering(data).split('\n')
+    .filter(getOptionFilter(option))
+    .join('\n'));

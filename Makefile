@@ -5,16 +5,10 @@ start1:
 	npx babel-node src/bin/gendiff.js __tests__/fixtures/before.json __tests__/fixtures/after.json
 
 start2:
-	npx babel-node src/bin/gendiff.js __tests__/fixtures/before.yml __tests__/fixtures/after.yml
-
-start3:
-	npx babel-node src/bin/gendiff.js __tests__/fixtures/before.ini __tests__/fixtures/after.ini
-
-start4:
 	npx babel-node src/bin/gendiff.js -f plain __tests__/fixtures/before.ini __tests__/fixtures/after.ini
 
-start5:
-	npx babel-node src/bin/gendiff.js -f json __tests__/fixtures/before.json __tests__/fixtures/after.json
+start3:
+	npx babel-node src/bin/gendiff.js -f json __tests__/fixtures/before.yaml __tests__/fixtures/after.yaml
 
 publish:
 	--dry-run
@@ -27,6 +21,9 @@ republish:
 	npm run build
 	npm publish --dry-run
 	sudo npm link
+
+test:
+	npm test
 
 test-coverage:
 	npm test -- --coverage

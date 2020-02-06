@@ -1,4 +1,4 @@
-import { isObject } from '../makediff';
+import { isObject } from '../getdifference';
 
 const stringify = (data, key, lvl, change = ' ', obj = false) => {
   if (isObject(data) || obj === true) {
