@@ -11,7 +11,7 @@ const stringify = (prop, change, value, oldValue) => {
     case 'deleted': {
       return `Property '${prop}' was deleted`;
     }
-    case 'objects': {
+    case 'tree': {
       return `Property '${prop}' was changed`;
     }
     default:
@@ -44,7 +44,7 @@ const getRenderedItemsByType = (acc, type, key, oldValue, newValue) => {
     }
     case 'changed': {
       if (isObject(oldValue) || isObject(newValue)) {
-        const changedItem = stringify(key, 'objects');
+        const changedItem = stringify(key, 'tree');
         const newItems = getStringifiedInnerItems(key, 'added', newValue);
         return [...acc, changedItem, newItems];
       }
@@ -60,9 +60,9 @@ const getRenderedItemsByType = (acc, type, key, oldValue, newValue) => {
 const getRendering = (data, father = '') => data.reduce((acc, item) => {
   const key = father === '' ? item.key : `${father}.${item.key}`;
   switch (item.type) {
-    case 'objects': {
+    case 'tree': {
       const renderedInnerItems = getRendering(item.children, key);
-      const stringifiedItem = stringify(key, 'objects');
+      const stringifiedItem = stringify(key, 'tree');
       return [...acc, stringifiedItem, renderedInnerItems];
     }
     default: {

@@ -1,7 +1,7 @@
 [
     {
         "key": "common",
-        "type": "objects",
+        "type": "tree",
         "children": [
             {
                 "key": "follow",
@@ -41,7 +41,7 @@
             },
             {
                 "key": "setting6",
-                "type": "objects",
+                "type": "tree",
                 "children": [
                     {
                         "key": "key",
@@ -60,7 +60,7 @@
     },
     {
         "key": "group1",
-        "type": "objects",
+        "type": "tree",
         "children": [
             {
                 "key": "baz",
