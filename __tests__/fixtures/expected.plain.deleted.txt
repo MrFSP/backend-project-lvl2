@@ -1,0 +1,2 @@
+Property 'common.setting2' was deleted
+Property 'group2' was deleted
