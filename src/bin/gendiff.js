@@ -15,10 +15,10 @@ program
     'differ')
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig, option) => {
-    printLine('gendiff');
     const result = genDiff(firstConfig, secondConfig, option.format, option.diff);
+    console.log(printLine('gendiff', result));
     console.log(result);
-    printLine('gendiff');
+    console.log(printLine('gendiff', result));
     return result;
   })
   .parse(process.argv);
