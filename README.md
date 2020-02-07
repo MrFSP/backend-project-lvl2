@@ -1,5 +1,5 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/MrFSP/backend-project-lvl2/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/16a429115cc91b51c51c/test_coverage)](https://codeclimate.com/github/MrFSP/backend-project-lvl2)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/MrFSP/backend-project-lvl2/test_coverage)
 [![Build Status](https://travis-ci.org/MrFSP/backend-project-lvl2.svg?branch=master)](https://travis-ci.org/MrFSP/backend-project-lvl2)
 [![Node.js CI](https://github.com/MrFSP/backend-project-lvl2/workflows/Node.js%20CI/badge.svg)](https://github.com/MrFSP/backend-project-lvl2/actions)
 
