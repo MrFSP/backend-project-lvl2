@@ -1,4 +1,5 @@
 import { isObject } from '../getdifference';
+import getOptionFilter from './plain.options';
 
 const stringify = (prop, change, value, oldValue) => {
   switch (change) {
@@ -71,20 +72,10 @@ const getRendering = (data, father = '') => data.reduce((acc, item) => {
   }
 }, []).join('\n');
 
-const getOptionFilter = (option) => {
-  switch (option) {
-    case 'differ':
-      return (item) => !(item.indexOf('not') !== -1 || item.indexOf('is tree') !== -1);
-    case 'added':
-      return (item) => item.indexOf('added') !== -1;
-    case 'deleted':
-      return (item) => item.indexOf('deleted') !== -1;
-    default:
-      return (item) => item.indexOf('not') !== -1;
-  }
+export default (data, option) => {
+  console.log(option);
+  return (option === 'complete' ? getRendering(data)
+    : getRendering(data).split('\n')
+      .filter(getOptionFilter(option))
+      .join('\n'));
 };
-
-export default (data, option) => (option === 'complete' ? getRendering(data)
-  : getRendering(data).split('\n')
-    .filter(getOptionFilter(option))
-    .join('\n'));
