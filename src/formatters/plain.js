@@ -1,5 +1,4 @@
 import { isObject } from '../getdifference';
-import getOptionFilter from './plain.options';
 
 const stringify = (prop, change, value, oldValue) => {
   switch (change) {
@@ -27,55 +26,61 @@ const getStringifiedInnerItems = (father, change, value) => {
   const stringifiedItem = stringify(father, change, '[complex value]');
   const keys = Object.keys(value);
   const stringifiedInnerItems = keys.reduce((acc, k) => {
-    const newKey = `${father}.${k}`;
-    const newStringifiedItem = stringify(newKey, change, value[k]);
+    const currentKey = `${father}.${k}`;
+    const newStringifiedItem = stringify(currentKey, change, value[k]);
     return [...acc, newStringifiedItem];
   }, []);
   return [stringifiedItem, ...stringifiedInnerItems].join('\n');
 };
 
-const getRenderedItemsByType = (acc, type, key, oldValue, newValue) => {
+const getRendering = (data, father = '') => data.reduce((acc, item) => {
+  const {
+    key, type, children, newValue, oldValue,
+  } = item;
+  const currentKey = father === '' ? key : `${father}.${key}`;
   switch (type) {
+    case 'tree': {
+      const renderedInnerItems = getRendering(children, currentKey);
+      const stringifiedItem = stringify(currentKey, 'tree');
+      return [...acc, stringifiedItem, renderedInnerItems];
+    }
     case 'deleted': {
-      return [...acc, stringify(key, 'deleted')];
+      return [...acc, stringify(currentKey, 'deleted')];
     }
     case 'added': {
-      const newItem = getStringifiedInnerItems(key, 'added', newValue);
+      const newItem = getStringifiedInnerItems(currentKey, 'added', newValue);
       return [...acc, newItem];
     }
     case 'changed': {
       if (isObject(oldValue) || isObject(newValue)) {
-        const changedItem = stringify(key, 'tree');
-        const newItems = getStringifiedInnerItems(key, 'added', newValue);
+        const changedItem = stringify(currentKey, 'tree');
+        const newItems = getStringifiedInnerItems(currentKey, 'added', newValue);
         return [...acc, changedItem, newItems];
       }
-      const changedItem = stringify(key, 'changed', newValue, oldValue);
+      const changedItem = stringify(currentKey, 'changed', newValue, oldValue);
       return [...acc, changedItem];
     }
     default: {
-      return [...acc, stringify(key, '', newValue)];
-    }
-  }
-};
-
-const getRendering = (data, father = '') => data.reduce((acc, item) => {
-  const key = father === '' ? item.key : `${father}.${item.key}`;
-  switch (item.type) {
-    case 'tree': {
-      const renderedInnerItems = getRendering(item.children, key);
-      const stringifiedItem = stringify(key, 'tree');
-      return [...acc, stringifiedItem, renderedInnerItems];
-    }
-    default: {
-      return getRenderedItemsByType(acc, item.type, key, item.oldValue, item.newValue);
+      return [...acc, stringify(currentKey, '', newValue)];
     }
   }
 }, []).join('\n');
 
+export const getFilteredData = (data, option) => data.split('\n').filter((item) => {
+  switch (option) {
+    case 'differ':
+      return !(item.indexOf('not') !== -1);
+    case 'added':
+      return item.indexOf('added') !== -1;
+    case 'deleted':
+      return item.indexOf('deleted') !== -1;
+    default:
+      return item.indexOf('not') !== -1;
+  }
+}).join('\n');
+
+
 export default (data, option) => {
-  console.log(option);
-  return (option === 'complete' ? getRendering(data)
-    : getRendering(data).split('\n')
-      .filter(getOptionFilter(option))
-      .join('\n'));
+  const renderedData = getRendering(data);
+  return option === null ? renderedData : getFilteredData(renderedData, option);
 };

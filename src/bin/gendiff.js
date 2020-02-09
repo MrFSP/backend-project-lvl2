@@ -11,8 +11,8 @@ program
   .option('-f, --format [type]',
     'Choose output format.\n\t\t        Types: simple, plain, json.\n\t\t       ', 'simple')
   .option('-c, --changes [type]',
-    'Additional flag for plain format to display differences or commons.\n\t\t        Types: differ, complete, common, added, deleted.\n\t\t       ',
-    'complete')
+    'Additional flag for plain format to display differences or commons.\n\t\t        Types: differ, common, added, deleted.\n\t\t       ',
+    null)
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig, option) => {
     const result = genDiff(firstConfig, secondConfig, option.format, option.changes);
