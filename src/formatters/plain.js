@@ -66,21 +66,4 @@ const getRendering = (data, father = '') => data.reduce((acc, item) => {
   }
 }, []).join('\n');
 
-export const getFilteredData = (data, option) => data.split('\n').filter((item) => {
-  switch (option) {
-    case 'differ':
-      return !(item.indexOf('not') !== -1);
-    case 'added':
-      return item.indexOf('added') !== -1;
-    case 'deleted':
-      return item.indexOf('deleted') !== -1;
-    default:
-      return item.indexOf('not') !== -1;
-  }
-}).join('\n');
-
-
-export default (data, option) => {
-  const renderedData = getRendering(data);
-  return option === null ? renderedData : getFilteredData(renderedData, option);
-};
+export default (data) => getRendering(data);

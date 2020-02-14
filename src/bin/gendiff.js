@@ -9,10 +9,7 @@ program
   .description(description)
   .version(`gendiff version: ${version}`, '-v, --version', 'output the version number')
   .option('-f, --format [type]',
-    'Choose output format.\n\t\t        Types: simple, plain, json.\n\t\t       ', 'simple')
-  .option('-c, --changes [type]',
-    'Additional flag for plain format to display differences or commons.\n\t\t        Types: differ, common, added, deleted.\n\t\t       ',
-    null)
+    'Choose output format.\n\t\t       Types: simple, plain, json.\n\t\t      ', 'simple')
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig, option) => {
     const result = genDiff(firstConfig, secondConfig, option.format, option.changes);
