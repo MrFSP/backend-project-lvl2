@@ -3,7 +3,6 @@
 import program from 'commander';
 import { version, description } from '../../package.json';
 import genDiff from '..';
-import printLine from './printline';
 
 program
   .description(description)
@@ -11,11 +10,6 @@ program
   .option('-f, --format [type]',
     'Choose output format.\n\t\t       Types: simple, plain, json.\n\t\t      ', 'simple')
   .arguments('<firstConfig> <secondConfig>')
-  .action((firstConfig, secondConfig, option) => {
-    const result = genDiff(firstConfig, secondConfig, option.format, option.changes);
-    console.log(printLine('gendiff', result));
-    console.log(result);
-    console.log(printLine('gendiff', result));
-    return result;
-  })
+  .action((firstConfig, secondConfig, option) => console.log(genDiff(firstConfig,
+    secondConfig, option.format)))
   .parse(process.argv);

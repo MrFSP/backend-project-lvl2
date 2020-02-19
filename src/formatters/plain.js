@@ -1,12 +1,14 @@
-import { isObject } from '../getdifference';
+import _ from 'lodash';
 
 const stringify = (prop, change, value, oldValue) => {
+  const currValue = value !== undefined ? value : '[complex value]';
+  const currOldValue = oldValue !== undefined ? oldValue : '[complex value]';
   switch (change) {
     case 'changed': {
-      return `Property '${prop}' was changed from ${oldValue} to ${value}`;
+      return `Property '${prop}' was changed from ${currOldValue} to ${currValue}`;
     }
     case 'added': {
-      return `Property '${prop}' was added with value: ${value}`;
+      return `Property '${prop}' was added with value: ${currValue}`;
     }
     case 'deleted': {
       return `Property '${prop}' was deleted`;
@@ -14,56 +16,48 @@ const stringify = (prop, change, value, oldValue) => {
     case 'tree': {
       return `Property '${prop}' was changed`;
     }
-    default:
+    case 'equal': {
       return `Property '${prop}' was not changed`;
+    }
+    default: {
+      return `Change of property '${prop}' was not defined`;
+    }
   }
 };
 
-const getStringifiedInnerItems = (father, change, value) => {
-  if (!isObject(value)) {
-    return stringify(father, change, value);
-  }
-  const stringifiedItem = stringify(father, change, '[complex value]');
-  const keys = Object.keys(value);
-  const stringifiedInnerItems = keys.reduce((acc, k) => {
-    const currentKey = `${father}.${k}`;
-    const newStringifiedItem = stringify(currentKey, change, value[k]);
-    return [...acc, newStringifiedItem];
-  }, []);
-  return [stringifiedItem, ...stringifiedInnerItems].join('\n');
-};
-
-const getRendering = (data, father = '') => data.reduce((acc, item) => {
+const getRendering = (data, ancestry = '') => data.map((item) => {
   const {
     key, type, children, newValue, oldValue,
   } = item;
-  const currentKey = father === '' ? key : `${father}.${key}`;
+  const currentKey = ancestry === '' ? key : `${ancestry}.${key}`;
   switch (type) {
     case 'tree': {
       const renderedInnerItems = getRendering(children, currentKey);
       const stringifiedItem = stringify(currentKey, 'tree');
-      return [...acc, stringifiedItem, renderedInnerItems];
+      return [stringifiedItem, renderedInnerItems].join('\n');
     }
     case 'deleted': {
-      return [...acc, stringify(currentKey, 'deleted')];
+      return stringify(currentKey, type);
     }
     case 'added': {
-      const newItem = getStringifiedInnerItems(currentKey, 'added', newValue);
-      return [...acc, newItem];
+      return stringify(currentKey, type);
     }
     case 'changed': {
-      if (isObject(oldValue) || isObject(newValue)) {
+      if (_.isObject(oldValue) || _.isObject(newValue)) {
         const changedItem = stringify(currentKey, 'tree');
-        const newItems = getStringifiedInnerItems(currentKey, 'added', newValue);
-        return [...acc, changedItem, newItems];
+        const newItems = stringify(currentKey, 'added');
+        return [changedItem, newItems].join('\n');
       }
-      const changedItem = stringify(currentKey, 'changed', newValue, oldValue);
-      return [...acc, changedItem];
+      const changedItem = stringify(currentKey, type, newValue, oldValue);
+      return changedItem;
+    }
+    case 'equal': {
+      return stringify(currentKey, 'equal');
     }
     default: {
-      return [...acc, stringify(currentKey, '', newValue)];
+      return stringify(currentKey);
     }
   }
-}, []).join('\n');
+}).join('\n');
 
 export default (data) => getRendering(data);
