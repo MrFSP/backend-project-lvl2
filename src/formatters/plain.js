@@ -20,7 +20,7 @@ const stringify = (prop, change, value, oldValue) => {
       return `Property '${prop}' was not changed`;
     }
     default: {
-      return `Change of property '${prop}' was not defined`;
+      throw new Error(`Type of change of property '${prop}' was not defined`);
     }
   }
 };

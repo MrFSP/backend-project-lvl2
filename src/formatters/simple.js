@@ -36,10 +36,13 @@ const getRendering = (data, lvl = 0) => data.map((item) => {
     case 'deleted': {
       return stringify.value(newValue, key, currentLvl, '-');
     }
-    default: {
+    case 'changed': {
       const oldItem = stringify.value(oldValue, key, currentLvl, '-');
       const newItem = stringify.value(newValue, key, currentLvl, '+');
       return `${oldItem}\n${newItem}`;
+    }
+    default: {
+      throw new Error(`The property ${type} is unexpected`);
     }
   }
 }).join('\n');
