@@ -16,6 +16,10 @@ publish:
 lint:
 	npx eslint .
 
+build:
+	rm -rf dist
+	npm run build
+
 republish:
 	sudo npm uninstall -g gendiff
 	npm run build
