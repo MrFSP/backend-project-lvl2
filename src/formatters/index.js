@@ -2,10 +2,10 @@ import renderSimple from './simple';
 import renderPlain from './plain';
 import renderJson from './json';
 
-const format = {
+const formatter = {
   simple: renderSimple,
   plain: renderPlain,
   json: renderJson,
 };
 
-export default (option) => format[option];
+export default (format) => formatter[format];

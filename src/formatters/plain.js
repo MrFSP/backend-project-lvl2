@@ -1,29 +1,6 @@
 import _ from 'lodash';
 
-const stringify = (prop, change, value, oldValue) => {
-  const currValue = value !== undefined ? value : '[complex value]';
-  const currOldValue = oldValue !== undefined ? oldValue : '[complex value]';
-  switch (change) {
-    case 'changed': {
-      return `Property '${prop}' was changed from ${currOldValue} to ${currValue}`;
-    }
-    case 'added': {
-      return `Property '${prop}' was added with value: ${currValue}`;
-    }
-    case 'deleted': {
-      return `Property '${prop}' was deleted`;
-    }
-    case 'tree': {
-      return `Property '${prop}' was changed`;
-    }
-    case 'equal': {
-      return `Property '${prop}' was not changed`;
-    }
-    default: {
-      throw new Error(`Type of change of property '${prop}' was not defined`);
-    }
-  }
-};
+const getValue = (value) => (!_.isObject(value) ? value : '[complex value]');
 
 const getRendering = (data, ancestry = '') => data.map((item) => {
   const {
@@ -33,29 +10,30 @@ const getRendering = (data, ancestry = '') => data.map((item) => {
   switch (type) {
     case 'tree': {
       const renderedInnerItems = getRendering(children, currentKey);
-      const stringifiedItem = stringify(currentKey, 'tree');
+      const stringifiedItem = `Property '${currentKey}' was changed`;
       return [stringifiedItem, renderedInnerItems].join('\n');
     }
     case 'deleted': {
-      return stringify(currentKey, type);
+      return `Property '${currentKey}' was deleted`;
     }
     case 'added': {
-      return stringify(currentKey, type);
+      const currValue = getValue(newValue);
+      return `Property '${currentKey}' was added with value: ${currValue}`;
     }
     case 'changed': {
       if (_.isObject(oldValue) || _.isObject(newValue)) {
-        const changedItem = stringify(currentKey, 'tree');
-        const newItems = stringify(currentKey, 'added');
+        const currValue = getValue(newValue);
+        const changedItem = `Property '${currentKey}' was changed`;
+        const newItems = `Property '${currentKey}' was added with value: ${currValue}`;
         return [changedItem, newItems].join('\n');
       }
-      const changedItem = stringify(currentKey, type, newValue, oldValue);
-      return changedItem;
+      return `Property '${currentKey}' was changed from ${oldValue} to ${newValue}`;
     }
     case 'equal': {
-      return stringify(currentKey, 'equal');
+      return `Property '${currentKey}' was not changed`;
     }
     default: {
-      return stringify(currentKey);
+      throw new Error(`ERROR! Unexpected value of property 'type': '${type}'!`);
     }
   }
 }).join('\n');

@@ -1,22 +1,24 @@
 import fs from 'fs';
 import path from 'path';
 import parse from './parsers';
-import prepareData from './process';
+import compareData from './comparison';
 import getFormatter from './formatters';
 
-const getFormat = (pathToFile) => path.extname(pathToFile);
-const getRaw = (pathToFile) => fs.readFileSync(pathToFile, 'utf-8');
+const getExtension = (pathToFile) => path.extname(pathToFile);
+const getData = (pathToFile) => fs.readFileSync(pathToFile, 'utf-8');
 
 export default (firstConfig, secondConfig, format) => {
   try {
-    const [format1, raw1] = [getFormat(firstConfig), getRaw(firstConfig)];
-    const [format2, raw2] = [getFormat(secondConfig), getRaw(secondConfig)];
-    const data1 = parse(format1, raw1);
-    const data2 = parse(format2, raw2);
-    const difference = prepareData(data1, data2);
-    const render = getFormatter(format);
-    return render(difference);
+    const extension1 = getExtension(firstConfig);
+    const extension2 = getExtension(secondConfig);
+    const data1 = getData(firstConfig);
+    const data2 = getData(secondConfig);
+    const parsedData1 = parse(extension1, data1);
+    const parsedData2 = parse(extension2, data2);
+    const comparedData = compareData(parsedData1, parsedData2);
+    const renderer = getFormatter(format);
+    return renderer(comparedData);
   } catch (error) {
-    return console.error(error);
+    return console.log(error);
   }
 };
