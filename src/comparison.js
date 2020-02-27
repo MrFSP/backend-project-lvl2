@@ -2,9 +2,9 @@ import _ from 'lodash';
 
 const getSortedKeys = (data1, data2) => _.union(Object.keys(data1), Object.keys(data2)).sort();
 
-const getChanges = (data1, data2) => getSortedKeys(data1, data2).map((key) => {
+const compareData = (data1, data2) => getSortedKeys(data1, data2).map((key) => {
   if (_.isObject(data1[key]) && _.isObject(data2[key])) {
-    return { key, type: 'tree', children: getChanges(data1[key], data2[key]) };
+    return { key, type: 'tree', children: compareData(data1[key], data2[key]) };
   }
   if (data1[key] === data2[key]) {
     return {
@@ -22,4 +22,4 @@ const getChanges = (data1, data2) => getSortedKeys(data1, data2).map((key) => {
   };
 });
 
-export default (data1, data2) => getChanges(data1, data2);
+export default (data1, data2) => compareData(data1, data2);
