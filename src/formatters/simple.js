@@ -34,7 +34,7 @@ const getRendering = (data, lvl = 0) => data.map((item) => {
       return `${oldItem}\n${newItem}`;
     }
     default: {
-      throw new Error(`The property ${type} is unexpected`);
+      throw new Error(`ERROR! Unexpected value of property 'type': '${type}'!`);
     }
   }
 }).join('\n');
