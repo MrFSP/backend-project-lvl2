@@ -21,13 +21,9 @@ const getRendering = (data, ancestry = '') => data.map((item) => {
       return `Property '${currentKey}' was added with value: ${currValue}`;
     }
     case 'changed': {
-      if (_.isObject(oldValue) || _.isObject(newValue)) {
-        const currValue = getValue(newValue);
-        const changedItem = `Property '${currentKey}' was changed`;
-        const newItems = `Property '${currentKey}' was added with value: ${currValue}`;
-        return [changedItem, newItems].join('\n');
-      }
-      return `Property '${currentKey}' was changed from ${oldValue} to ${newValue}`;
+      const currNewValue = getValue(newValue);
+      const currOldValue = getValue(oldValue);
+      return `Property '${currentKey}' was changed from ${currOldValue} to ${currNewValue}`;
     }
     case 'equal': {
       return `Property '${currentKey}' was not changed`;

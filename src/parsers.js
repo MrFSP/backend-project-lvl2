@@ -2,9 +2,9 @@ import ini from 'ini';
 import yaml from 'js-yaml';
 
 const parsers = {
-  '.json': JSON.parse,
-  '.yaml': yaml.safeLoad,
-  '.ini': ini.parse,
+  json: JSON.parse,
+  yaml: yaml.safeLoad,
+  ini: ini.parse,
 };
 
-export default (extension, data) => parsers[extension](data);
+export default (type, data) => parsers[type](data);
