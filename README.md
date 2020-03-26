@@ -3,8 +3,7 @@
 [![Build Status](https://travis-ci.org/MrFSP/backend-project-lvl2.svg?branch=master)](https://travis-ci.org/MrFSP/backend-project-lvl2)
 [![Node.js CI](https://github.com/MrFSP/backend-project-lvl2/workflows/Node.js%20CI/badge.svg)](https://github.com/MrFSP/backend-project-lvl2/actions)
 
-## Проект Вычислитель отличий / Профессия Бэкенд JavaScript (node.js)
-https://ru.hexlet.io/professions/backend/projects/46
+## [Проект Вычислитель отличий](https://ru.hexlet.io/professions/backend/projects/46) / [Профессия Бэкенд JavaScript (node.js)](https://ru.hexlet.io/professions/backend)
 
 ### Уровень: 2
 
@@ -58,22 +57,14 @@ $ gendiff pathToFile1 pathToFile2
 
 ### Демонстрации:
 
-#### Step 2
+#### 
 
-https://asciinema.org/a/298228
+[![asciicast](https://asciinema.org/a/297754.svg)](https://asciinema.org/a/297754)
 
-#### Step 3 - 6:
+#### 
 
-https://asciinema.org/a/297342
+[![asciicast](https://asciinema.org/a/298205.svg)](https://asciinema.org/a/298205)
 
-#### Step 7:
+#### 
 
-https://asciinema.org/a/297754
-
-#### Step 8:
-
-https://asciinema.org/a/298205
-
-#### Step 9:
-
-https://asciinema.org/a/298226
+[![asciicast](https://asciinema.org/a/298226.svg)](https://asciinema.org/a/298226)
