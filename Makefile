@@ -1,5 +1,11 @@
 install:
 	npm install
+	npm run build
+	npm publish --dry-run
+	sudo npm link
+
+uninstall:
+	sudo npm uninstall -g gendiff
 
 start1:
 	npx babel-node src/bin/gendiff.js __tests__/__fixtures__/before.json __tests__/__fixtures__/after.json
